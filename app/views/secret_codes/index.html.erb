@@ -1,0 +1,22 @@
+<h2>Secret Code</h2>
+<div class="table-responsive">
+<%= paginate @secret_codes %>
+<table class="table">
+  <thead>
+  	<th>Code</th>
+  	<th>User</th>
+  </thead>
+  <tbody>
+    <% @secret_codes.each do |secret_code|%>
+      <tr>
+        <td><%= secret_code.code %></td>     
+        <td><%= secret_code.try(:user).try(:email) %></td>
+      </tr>
+   <% end %>
+  </tbody>
+</table>
+</div>
+<%= form_for(@secret_code) do |f| %>
+  <%= f.collection_select :no_of_times, SecretCode.times_options, :first, :last, :selected => 10 %>
+  <%= f.submit "Generate" %>
+<% end %>
